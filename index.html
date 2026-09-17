@@ -7,22 +7,26 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f9fafb;
+            background-color: #f3f4f6;
             color: #111827;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
             margin: 0;
+            padding: 40px 20px;
         }
         .container {
             text-align: center;
-            max-width: 600px;
+            max-width: 800px;
+            width: 100%;
             padding: 40px;
             background: white;
             border-radius: 16px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            margin-bottom: 40px;
         }
         h1 { font-size: 2.5rem; margin-bottom: 10px; }
         p { color: #4b5563; font-size: 1.1rem; margin-bottom: 30px; }
@@ -30,13 +34,15 @@
             display: flex;
             gap: 20px;
             justify-content: center;
+            flex-wrap: wrap;
             margin-top: 20px;
         }
         .card {
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             padding: 24px;
-            width: 200px;
+            width: 220px;
+            background: #ffffff;
             transition: border-color 0.2s;
         }
         .card:hover { border-color: #4f46e5; }
@@ -53,10 +59,52 @@
             width: 100%;
         }
         button:hover { background-color: #4338ca; }
+
+        /* 📸 New Gallery Styling Sections */
+        .gallery-title {
+            font-size: 1.75rem;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 10px;
+        }
+        .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+        .image-caption {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: #4b5563;
+            font-weight: 500;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Main Pricing Block -->
     <div class="container">
         <h1>Instant Business Creator</h1>
         <p>Launch your fully automated business website in seconds.</p>
@@ -66,17 +114,45 @@
                 <h3>Weekly Pass</h3>
                 <div class="price">$6</div>
                 <p>Billed every 7 days</p>
-                <!-- ⚠️ REPLACE 'price_WEEKLY_ID' with your Stripe Price ID later -->
-                <button onclick="checkout('price_WEEKLY_ID')">Subscribe</button>
+                <button onclick="checkout('price_1UGYMR7UjmmUoWdKxBnnpLgu')">Subscribe</button>
             </div>
 
             <div class="card">
                 <h3>Monthly Pro</h3>
                 <div class="price">$20</div>
                 <p>Billed monthly</p>
-                <!-- ⚠️ REPLACE 'price_MONTHLY_ID' with your Stripe Price ID later -->
-                <button onclick="checkout('price_MONTHLY_ID')">Subscribe</button>
+                <button onclick="checkout('price_1UGYSY7UjmmUoWdK0HZ8rmig')">Subscribe</button>
             </div>
+        </div>
+    </div>
+
+    <!-- 🌌 New Concept & Inspiration Gallery Section -->
+    <div class="gallery-title">Turn Ideas Into Reality</div>
+    <p style="margin-top:0; margin-bottom:20px;">See how our automated workspace brings your creative visions to life.</p>
+    
+    <div class="image-grid">
+        <!-- Image 1 -->
+        <div class="gallery-item">
+            <img src="https://unsplash.com" alt="Idea Execution">
+            <div class="image-caption">1. Materialize Concepts</div>
+        </div>
+
+        <!-- Image 2 -->
+        <div class="gallery-item">
+            <img src="https://unsplash.com" alt="Brainstorm Workflow">
+            <div class="image-caption">2. Work Anywhere Smoothly</div>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="gallery-item">
+            <img src="https://unsplash.com" alt="Creative Mind">
+            <div class="image-caption">3. Unleash Automation</div>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="gallery-item">
+            <img src="https://unsplash.com" alt="Taking Action">
+            <div class="image-caption">4. Scale Operations</div>
         </div>
     </div>
 
@@ -92,7 +168,7 @@
                 if (session.url) {
                     window.location.href = session.url;
                 } else {
-                    alert('Error creating checkout session.');
+                    alert('Error creating checkout session. Please check your credentials.');
                 }
             } catch (error) {
                 console.error('Frontend Error:', error);
