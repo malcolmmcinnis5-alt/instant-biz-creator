@@ -3,182 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instant Business Creation</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <title>Select Your Subscription</title>
     <style>
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f3f4f6;
-            color: #111827;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            margin: 0;
-            padding: 40px 0;
-        }
-        .container {
-            text-align: center;
-            max-width: 650px;
-            width: 90%;
-            padding: 40px 30px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            margin-bottom: 30px;
-        }
-        h1 { 
-            font-family: 'Syncopate', sans-serif;
-            font-size: 1.3rem; 
-            margin-bottom: 30px; 
-            line-height: 1.6; 
-            letter-spacing: 4px; 
-            color: #111827;
-            display: block;
-        }
-        .workspace-block {
-            width: 100%;
-            border-radius: 12px;
-            margin-top: 20px;
-            padding: 40px 20px;
-            box-sizing: border-box;
-            position: relative;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url('https://postimg.cc');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        .pricing-cards {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 2;
-        }
-        .card {
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 24px;
-            width: 180px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(4px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-        .price { font-size: 2rem; font-weight: bold; margin: 15px 0; }
-        
-        /* 📱 MOBILE FIX: Added styles to make buttons instantly responsive on mobile touches */
-        .pay-button {
-            display: block;
-            background-color: #4f46e5;
-            color: white;
-            border: none;
-            padding: 14px 24px;
-            font-size: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            width: 100%;
-            letter-spacing: 1px;
-            text-decoration: none;
-            box-sizing: border-box;
-            -webkit-appearance: none;
-            touch-action: manipulation; /* Removes mobile touch tap delays */
-        }
-        .pay-button:active { background-color: #3730a3; }
-
-        .bottom-section {
-            text-align: center;
-            max-width: 600px;
-            width: 90%;
-            margin-top: 15px;
-            margin-bottom: 25px;
-        }
-        .bottom-text {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #1f2937;
-            line-height: 1.5;
-            letter-spacing: 3px;
-        }
-        .bottom-banner {
-            width: 100%;
-            max-width: 450px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: center;
-        }
-        .bottom-banner img {
-            width: 85%;
-            height: auto;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f6f9; margin: 0; }
+        .pricing-container { display: flex; gap: 20px; }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; width: 200px; }
+        h3 { margin-top: 0; color: #333; }
+        .price { font-size: 24px; font-weight: bold; color: #111; margin: 15px 0; }
+        button { background-color: #6772e5; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
+        button:hover { background-color: #5469d4; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <span class="headline-text">CREATE A BUSINESS INSTANTLY, EXPLAIN YOUR IDEA AND IN SECONDS YOUR FULLY FUNCTIONAL WEBPAGE IS READY FOR SALES</span>
+    <div class="pricing-container">
+        <!-- 7 Day Plan -->
+        <div class="card">
+            <h3>Short Term Plan</h3>
+            <div class="price">$6 <span style="font-size:14px; color:#666;">/ 7 days</span></div>
+            <button onclick="checkout('weekly')">Subscribe Now</button>
+        </div>
 
-        <div class="workspace-block">
-            <div class="pricing-cards">
-                <div class="card">
-                    <h3>Weekly Pass</h3>
-                    <div class="price">$6</div>
-                    <p>Billed every 7 days</p>
-                    <!-- 🛠️ Mobile fix: added .pay-button class -->
-                    <button class="pay-button" onclick="checkout('price_1UGYMR7UjmmUoWdKxBnnpLgu')">Subscribe</button>
-                </div>
-
-                <div class="card">
-                    <h3>Monthly Pro</h3>
-                    <div class="price">$20</div>
-                    <p>Billed monthly</p>
-                    <!-- 🛠️ Mobile fix: added .pay-button class -->
-                    <button class="pay-button" onclick="checkout('price_1UGYSY7UjmmUoWdK0HZ8rmig')">Subscribe</button>
-                </div>
-            </div>
+        <!-- Monthly Plan -->
+        <div class="card">
+            <h3>Monthly Plan</h3>
+            <div class="price">$20 <span style="font-size:14px; color:#666;">/ month</span></div>
+            <button onclick="checkout('monthly')">Subscribe Now</button>
         </div>
     </div>
 
-    <div class="bottom-section">
-        <p class="bottom-text">AI GENERATOR TO MAKE YOUR DREAMS REALITY</p>
-    </div>
-
-    <div class="bottom-banner">
-        <img src="https://postimg.cc" alt="Idea Without Action Is Nothing">
-    </div>
-
     <script>
-        async function checkout(priceId) {
+        async function checkout(plan) {
             try {
-                // Disable buttons temporarily on tap to show responsiveness
-                const buttons = document.querySelectorAll('.pay-button');
-                buttons.forEach(btn => btn.innerText = 'Connecting...');
-
-                const response = await fetch('/create-checkout-session', {
+                const response = await fetch('https://onrender.com', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ priceId: priceId })
+                    body: JSON.stringify({ planType: plan })
                 });
-                const session = await response.json();
-                if (session.url) {
-                    window.location.href = session.url;
+                
+                const data = await response.json();
+                if (data.url) {
+                    window.location.href = data.url; // Send customer to Stripe Checkout Page
                 } else {
-                    alert('Error creating checkout session. Please check your credentials.');
-                    buttons.forEach(btn => btn.innerText = 'Subscribe');
+                    alert('Error creating checkout session.');
                 }
-            } catch (error) {
-                console.error('Frontend Error:', error);
-                alert('Connection error. Please try again.');
-                document.querySelectorAll('.pay-button').forEach(btn => btn.innerText = 'Subscribe');
+            } catch (err) {
+                console.error('Frontend Error:', err);
+                alert('Could not connect to payment server.');
             }
         }
     </script>
