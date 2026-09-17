@@ -60,7 +60,7 @@
         }
         button:hover { background-color: #4338ca; }
 
-        /* 📸 New Gallery Styling Sections */
+        /* 📸 Feature Grid Layout Details */
         .gallery-title {
             font-size: 1.75rem;
             margin: 20px 0 10px 0;
@@ -68,10 +68,10 @@
         }
         .image-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin-top: 10px;
         }
         .gallery-item {
@@ -83,28 +83,29 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 15px;
+            justify-content: space-between;
+            padding: 20px;
+            background: #ffffff;
         }
         .gallery-item img {
             width: 100%;
             height: auto;
-            max-height: 200px;
+            max-height: 220px;
             object-fit: contain;
             border-radius: 6px;
         }
         .image-caption {
-            margin-top: 12px;
-            font-size: 0.95rem;
-            color: #4b5563;
-            font-weight: 500;
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #374151;
+            font-weight: 600;
             text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- Main Pricing Block -->
+    <!-- Subscription Plans Block -->
     <div class="container">
         <h1>Instant Business Creator</h1>
         <p>Launch your fully automated business website in seconds.</p>
@@ -126,33 +127,41 @@
         </div>
     </div>
 
-    <!-- 🌌 New Concept & Inspiration Gallery Section -->
+    <!-- 🌌 Dynamic Visual Feature Grid Section -->
     <div class="gallery-title">Turn Ideas Into Reality</div>
-    <p style="margin-top:0; margin-bottom:20px;">See how our automated workspace brings your creative visions to life.</p>
+    <p style="margin-top:0; margin-bottom:20px;">See how our automated workspace builds momentum for your brand.</p>
     
     <div class="image-grid">
-        <!-- Image 1 -->
+        <!-- Image 1: Pulling Lightbulb -->
         <div class="gallery-item">
-            <img src="https://unsplash.com" alt="Idea Execution">
-            <div class="image-caption">1. Materialize Concepts</div>
+            <img src="./image_AhnYC6.png" alt="Execution">
+            <div class="image-caption">1. Put Ideas to Work</div>
         </div>
 
-        <!-- Image 2 -->
+        <!-- Image 2: Idea Without Action -->
         <div class="gallery-item">
-            <img src="https://unsplash.com" alt="Brainstorm Workflow">
-            <div class="image-caption">2. Work Anywhere Smoothly</div>
+            <img src="./image_9N71WL.png" alt="Action over Ideas">
+            <div class="image-caption">2. Take Decisive Action</div>
         </div>
 
-        <!-- Image 3 -->
+        <!-- Image 3: Office vs Shower -->
         <div class="gallery-item">
-            <img src="https://unsplash.com" alt="Creative Mind">
-            <div class="image-caption">3. Unleash Automation</div>
+            <img src="./image_478tlN.png" alt="Inspiration Flow">
+            <div class="image-caption">3. Capture Insights Anytime</div>
         </div>
 
-        <!-- Image 4 -->
+        <!-- Image 4: Creative Head Burst -->
         <div class="gallery-item">
-            <img src="https://unsplash.com" alt="Taking Action">
-            <div class="image-caption">4. Scale Operations</div>
+            <img src="./image_mk5aEQ.png" alt="Creative Expansion">
+            <div class="image-caption">4. Scale Innovation</div>
+        </div>
+
+        <!-- Image 5: Ice Cream Process -->
+        <div class="gallery-item">
+            <div style="flex-grow:1; display:flex; align-items:center;">
+                <img src="./image_voB1iK.png" alt="Concept to Product">
+            </div>
+            <div class="image-caption">5. Deliver Sweet Results</div>
         </div>
     </div>
 
