@@ -6,7 +6,7 @@
     <title>Instant Business Creation</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -19,20 +19,7 @@
             justify-content: flex-start;
             min-height: 100vh;
             margin: 0;
-            padding: 0;
-        }
-        .top-banner {
-            width: 100%;
-            max-width: 450px;
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-        }
-        .top-banner img {
-            width: 85%;
-            height: auto;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 40px 0;
         }
         .container {
             text-align: center;
@@ -43,7 +30,7 @@
             border-radius: 16px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
-            margin: 30px 0;
+            margin-bottom: 30px;
         }
         h1 { 
             font-family: 'Syncopate', sans-serif;
@@ -54,18 +41,37 @@
             letter-spacing: 4px; 
             color: #111827;
         }
+        
+        /* 🌌 IMAGE BACKGROUND WORKSPACE BLOCK */
+        .workspace-block {
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 20px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            position: relative;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url('https://postimg.cc');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
         .pricing-cards {
             display: flex;
             gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2; /* Ensures cards stay above the background layout */
         }
         .card {
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             padding: 24px;
             width: 200px;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95); /* Slight card transparency */
+            backdrop-filter: blur(4px); /* Smooth background frosting effect */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
         .price { font-size: 2rem; font-weight: bold; margin: 15px 0; }
         button {
@@ -86,7 +92,7 @@
             text-align: center;
             max-width: 600px;
             width: 90%;
-            margin-top: 10px;
+            margin-top: 15px;
             margin-bottom: 25px;
         }
         .bottom-text {
@@ -101,7 +107,7 @@
         .bottom-banner {
             width: 100%;
             max-width: 450px;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: center;
         }
@@ -115,27 +121,26 @@
 </head>
 <body>
 
-    <div class="top-banner">
-        <img src="https://postimg.cc" alt="Creative Mind AI">
-    </div>
-
     <div class="container">
-        <!-- 📝 Your exact new wording structure -->
+        <!-- Main Wording Layout -->
         <h1>create a business instantly, explain your idea and in seconds your fully functional webpage is ready for sales</h1>
 
-        <div class="pricing-cards">
-            <div class="card">
-                <h3>Weekly Pass</h3>
-                <div class="price">$6</div>
-                <p>Billed every 7 days</p>
-                <button onclick="checkout('price_1UGYMR7UjmmUoWdKxBnnpLgu')">Subscribe</button>
-            </div>
+        <!-- Consolidated Interactive Graphic Workspace Block -->
+        <div class="workspace-block">
+            <div class="pricing-cards">
+                <div class="card">
+                    <h3>Weekly Pass</h3>
+                    <div class="price">$6</div>
+                    <p>Billed every 7 days</p>
+                    <button onclick="checkout('price_1UGYMR7UjmmUoWdKxBnnpLgu')">Subscribe</button>
+                </div>
 
-            <div class="card">
-                <h3>Monthly Pro</h3>
-                <div class="price">$20</div>
-                <p>Billed monthly</p>
-                <button onclick="checkout('price_1UGYSY7UjmmUoWdK0HZ8rmig')">Subscribe</button>
+                <div class="card">
+                    <h3>Monthly Pro</h3>
+                    <div class="price">$20</div>
+                    <p>Billed monthly</p>
+                    <button onclick="checkout('price_1UGYSY7UjmmUoWdK0HZ8rmig')">Subscribe</button>
+                </div>
             </div>
         </div>
     </div>
