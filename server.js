@@ -2,10 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
-// 🔐 Auto-sanitizes spaces and applies universal Fetch client for Render network compatibility
+// 🔐 Auto-sanitizes keys and applies the modern Fetch client for Render network compatibility
 const stripeSecretKey = (process.env.STRIPE_SECRET_KEY || '').trim().replace(/['"‘“’”\s]/g, '');
-const stripe = require('stripe')(stripeSecretKey, {
-    httpClient: require('stripe').Stripe.createFetchHttpClient()
+const Stripe = require('stripe');
+const stripe = new Stripe(stripeSecretKey, {
+    httpClient: Stripe.createFetchHttpClient() // 🚀 FORCES COMPATIBILITY WITH RENDER'S FIREWALL
 }); 
 
 const app = express();
