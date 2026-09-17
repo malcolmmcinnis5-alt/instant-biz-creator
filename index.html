@@ -32,10 +32,8 @@
             box-sizing: border-box;
             margin-bottom: 30px;
         }
-        
-        /* 🔤 Cleaned Typography rule to prevent url corruption */
-        .headline-text { 
-            font-family: 'Syncopate', sans-serif !important;
+        h1 { 
+            font-family: 'Syncopate', sans-serif;
             font-size: 1.3rem; 
             margin-bottom: 30px; 
             line-height: 1.6; 
@@ -43,7 +41,6 @@
             color: #111827;
             display: block;
         }
-        
         .workspace-block {
             width: 100%;
             border-radius: 12px;
@@ -56,7 +53,6 @@
             background-position: center;
             background-repeat: no-repeat;
         }
-
         .pricing-cards {
             display: flex;
             gap: 20px;
@@ -75,19 +71,26 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
         .price { font-size: 2rem; font-weight: bold; margin: 15px 0; }
-        button {
+        
+        /* 📱 MOBILE FIX: Added styles to make buttons instantly responsive on mobile touches */
+        .pay-button {
+            display: block;
             background-color: #4f46e5;
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 24px;
             font-size: 1rem;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             width: 100%;
             letter-spacing: 1px;
+            text-decoration: none;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            touch-action: manipulation; /* Removes mobile touch tap delays */
         }
-        button:hover { background-color: #4338ca; }
+        .pay-button:active { background-color: #3730a3; }
 
         .bottom-section {
             text-align: center;
@@ -122,7 +125,6 @@
 <body>
 
     <div class="container">
-        <!-- 📝 Safely isolated headline text block -->
         <span class="headline-text">CREATE A BUSINESS INSTANTLY, EXPLAIN YOUR IDEA AND IN SECONDS YOUR FULLY FUNCTIONAL WEBPAGE IS READY FOR SALES</span>
 
         <div class="workspace-block">
@@ -131,14 +133,16 @@
                     <h3>Weekly Pass</h3>
                     <div class="price">$6</div>
                     <p>Billed every 7 days</p>
-                    <button onclick="checkout('price_1UGYMR7UjmmUoWdKxBnnpLgu')">Subscribe</button>
+                    <!-- 🛠️ Mobile fix: added .pay-button class -->
+                    <button class="pay-button" onclick="checkout('price_1UGYMR7UjmmUoWdKxBnnpLgu')">Subscribe</button>
                 </div>
 
                 <div class="card">
                     <h3>Monthly Pro</h3>
                     <div class="price">$20</div>
                     <p>Billed monthly</p>
-                    <button onclick="checkout('price_1UGYSY7UjmmUoWdK0HZ8rmig')">Subscribe</button>
+                    <!-- 🛠️ Mobile fix: added .pay-button class -->
+                    <button class="pay-button" onclick="checkout('price_1UGYSY7UjmmUoWdK0HZ8rmig')">Subscribe</button>
                 </div>
             </div>
         </div>
@@ -155,6 +159,10 @@
     <script>
         async function checkout(priceId) {
             try {
+                // Disable buttons temporarily on tap to show responsiveness
+                const buttons = document.querySelectorAll('.pay-button');
+                buttons.forEach(btn => btn.innerText = 'Connecting...');
+
                 const response = await fetch('/create-checkout-session', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -165,11 +173,15 @@
                     window.location.href = session.url;
                 } else {
                     alert('Error creating checkout session. Please check your credentials.');
+                    buttons.forEach(btn => btn.innerText = 'Subscribe');
                 }
             } catch (error) {
                 console.error('Frontend Error:', error);
+                alert('Connection error. Please try again.');
+                document.querySelectorAll('.pay-button').forEach(btn => btn.innerText = 'Subscribe');
             }
         }
     </script>
 </body>
 </html>
+
