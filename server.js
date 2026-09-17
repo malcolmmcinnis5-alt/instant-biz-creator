@@ -2,8 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
-// 🔐 Securely reads your key from Render's hidden environment variables
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); 
+// 🔐 Auto-sanitizes spaces and applies universal Fetch client for Render network compatibility
+const stripeSecretKey = (process.env.STRIPE_SECRET_KEY || '').trim().replace(/['"‘“’”\s]/g, '');
+const stripe = require('stripe')(stripeSecretKey, {
+    httpClient: require('stripe').Stripe.createFetchHttpClient()
+}); 
 
 const app = express();
 
