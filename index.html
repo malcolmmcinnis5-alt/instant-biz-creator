@@ -3,31 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Your Subscription</title>
+    <title>Instant Biz Creator - AI Website Generator</title>
+    <!-- Import Modern Bold Tech Fonts -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f6f9; margin: 0; }
-        .pricing-container { display: flex; gap: 20px; }
-        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; width: 200px; }
-        h3 { margin-top: 0; color: #333; }
-        .price { font-size: 24px; font-weight: bold; color: #111; margin: 15px 0; }
-        button { background-color: #6772e5; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
-        button:hover { background-color: #5469d4; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0b0f19; 
+            color: #f3f4f6; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center;
+            min-height: 100vh; 
+            padding: 40px 20px;
+        }
+        
+        /* Hero Styling & Your Fonts */
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .subtitle {
+            font-size: 1.25rem;
+            color: #9ca3af;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        /* Container & Cards Layout */
+        .pricing-container { 
+            display: flex; 
+            gap: 30px; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            width: 100%;
+            max-width: 700px;
+        }
+        .card { 
+            background: #111827; 
+            border: 1px solid #1f2937;
+            padding: 40px 30px; 
+            border-radius: 16px; 
+            text-align: center; 
+            flex: 1;
+            min-width: 280px; 
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #6366f1;
+        }
+        h3 { 
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem; 
+            color: #ffffff; 
+            margin-bottom: 10px;
+        }
+        .price { 
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 38px; 
+            font-weight: 700; 
+            color: #ffffff; 
+            margin: 20px 0; 
+        }
+        .price span { 
+            font-family: 'Inter', sans-serif;
+            font-size: 16px; 
+            color: #6b7280; 
+            font-weight: 400;
+        }
+        
+        /* Action Buttons */
+        button { 
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white; 
+            border: none; 
+            padding: 14px 20px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: 600;
+            width: 100%; 
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+            transition: opacity 0.2s ease;
+        }
+        button:hover { 
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Your Awesome Copywriting Integration -->
+    <div class="hero">
+        <h1>AI GENERATOR CREATES YOUR IDEA INTO A BUSINESS IN SECONDS</h1>
+        <p class="subtitle">MAKE ANY IDEA OR BUSINESS INTO A WEBSITE INSTANTLY</p>
+    </div>
+
     <div class="pricing-container">
         <!-- 7 Day Plan -->
         <div class="card">
-            <h3>Short Term Plan</h3>
-            <div class="price">$6 <span style="font-size:14px; color:#666;">/ 7 days</span></div>
-            <button onclick="checkout('weekly')">Subscribe Now</button>
+            <h3>Weekly Pass</h3>
+            <div class="price">$6 <span>/ 7 days</span></div>
+            <button onclick="checkout('weekly')">Get Started</button>
         </div>
 
         <!-- Monthly Plan -->
         <div class="card">
-            <h3>Monthly Plan</h3>
-            <div class="price">$20 <span style="font-size:14px; color:#666;">/ month</span></div>
+            <h3>Growth Membership</h3>
+            <div class="price">$20 <span>/ month</span></div>
             <button onclick="checkout('monthly')">Subscribe Now</button>
         </div>
     </div>
@@ -43,9 +144,9 @@
                 
                 const data = await response.json();
                 if (data.url) {
-                    window.location.href = data.url; // Send customer to Stripe Checkout Page
+                    window.location.href = data.url; 
                 } else {
-                    alert('Error creating checkout session.');
+                    alert('Error: Check that your real Stripe Price IDs match in your server.js file.');
                 }
             } catch (err) {
                 console.error('Frontend Error:', err);
@@ -55,4 +156,3 @@
     </script>
 </body>
 </html>
-
