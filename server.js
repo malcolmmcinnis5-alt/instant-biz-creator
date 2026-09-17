@@ -1,42 +1,58 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
+require('dotenv').config();
+
+// 1. DIAGNOSTIC LOGS: This prints to your Render terminal immediately on boot
+console.log("=== STRIPE ENVIRONMENT CHECK ===");
+if (!process.env.STRIPE_SECRET_KEY) {
+    console.log("❌ ERROR: STRIPE_SECRET_KEY is completely missing in Render Environment!");
+} else {
+    const key = process.env.STRIPE_SECRET_KEY;
+    console.log(`✅ SUCCESS: Key found! Length: ${key.length} characters.`);
+    console.log(`🔑 Key Type: ${key.startsWith('sk_live_') ? 'LIVE PRODUCTION MODE' : 'TEST MODE'}`);
+}
+console.log("=================================");
+
+// 2. INITIALIZE STRIPE
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const app = express();
 
-// Webhook handling for automated subscription activation
-app.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {
-  const sig = request.headers['stripe-signature'];
-  let event;
-  try {
-    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-  } catch (err) {
-    return response.status(400).send(`Webhook Error: ${err.message}`);
-  }
-  if (event.type === 'checkout.session.completed') {
-    console.log(`✅ Success! User paid.`);
-  }
-  response.send({ received: true });
-});
-
-// Parsers and static asset server configuration
+// 3. MIDDLEWARE
+app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
 
+// 4. CHECKOUT SESSION ENDPOINT
 app.post('/create-checkout-session', async (req, res) => {
-  const { priceId } = req.body;
-  try {
-    const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
-      payment_method_types: ['card'],
-      line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${req.headers.origin}/success.html`,
-      cancel_url: `${req.headers.origin}/cancel.html`,
-    });
-    res.json({ url: session.url });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    const { priceId } = req.body;
+
+    if (!priceId) {
+        return res.status(400).json({ error: "Missing priceId in request body" });
+    }
+
+    try {
+        const session = await stripe.checkout.sessions.create({
+            mode: 'subscription',
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price: priceId, // Accepts your \$6 or \$20 price ID dynamically
+                    quantity: 1,
+                },
+            ],
+            // Redirect URLs back to your web app
+            success_url: 'https://vercel.app',
+            cancel_url: 'https://vercel.app',
+        });
+
+        res.json({ url: session.url });
+    } catch (error) {
+        console.error("❌ Stripe API Error:", error.message);
+        res.status(500).json({ error: error.message });
+    }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// 5. START SERVER
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server running cleanly on port ${PORT}`);
+});
