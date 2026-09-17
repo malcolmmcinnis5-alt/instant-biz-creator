@@ -1,42 +1,182 @@
-const express = require('express');
-const app = express();
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Business Creation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f3f4f6;
+            color: #111827;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        p { color: #4b5563; font-size: 1.1rem; margin-bottom: 30px; }
+        .pricing-cards {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .card {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            width: 220px;
+            background: #ffffff;
+            transition: border-color 0.2s;
+        }
+        .card:hover { border-color: #4f46e5; }
+        .price { font-size: 2rem; font-weight: bold; margin: 15px 0; }
+        button {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            width: 100%;
+        }
+        button:hover { background-color: #4338ca; }
 
-// Webhook handling for automated subscription activation
-app.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {
-  const sig = request.headers['stripe-signature'];
-  let event;
-  try {
-    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-  } catch (err) {
-    return response.status(400).send(`Webhook Error: ${err.message}`);
-  }
-  if (event.type === 'checkout.session.completed') {
-    console.log(`✅ Success! User paid.`);
-  }
-  response.send({ received: true });
-});
+        .gallery-title {
+            font-size: 1.75rem;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 10px;
+        }
+        .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: #ffffff;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            max-height: 220px;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+        .image-caption {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #374151;
+            font-weight: 600;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
 
-// Parsers and static asset server configuration
-app.use(express.json());
-app.use(express.static(__dirname));
+    <div class="container">
+        <h1>Instant Business Creator</h1>
+        <p>Launch your fully automated business website in seconds.</p>
 
-app.post('/create-checkout-session', async (req, res) => {
-  const { priceId } = req.body;
-  try {
-    const session = await stripe.checkout.sessions.create({
-      mode: 'subscription',
-      payment_method_types: ['card'],
-      line_items: [{ price: priceId, quantity: 1 }],
-      success_url: `${req.headers.origin}/success.html`,
-      cancel_url: `${req.headers.origin}/cancel.html`,
-    });
-    res.json({ url: session.url });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+        <div class="pricing-cards">
+            <div class="card">
+                <h3>Weekly Pass</h3>
+                <div class="price">$6</div>
+                <p>Billed every 7 days</p>
+                <button onclick="checkout('price_1UGYMR7UjmmUoWdKxBnnpLgu')">Subscribe</button>
+            </div>
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+            <div class="card">
+                <h3>Monthly Pro</h3>
+                <div class="price">$20</div>
+                <p>Billed monthly</p>
+                <button onclick="checkout('price_1UGYSY7UjmmUoWdK0HZ8rmig')">Subscribe</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-title">Turn Ideas Into Reality</div>
+    <p style="margin-top:0; margin-bottom:20px;">See how our automated workspace builds momentum for your brand.</p>
+    
+    <div class="image-grid">
+        <!-- 🛠️ FIXED TO USE .jpg ASSES BELOW -->
+        <div class="gallery-item">
+            <img src="./image_AhnYC6.jpg" alt="Execution">
+            <div class="image-caption">1. Put Ideas to Work</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./image_9N71WL.jpg" alt="Action over Ideas">
+            <div class="image-caption">2. Take Decisive Action</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./image_478tlN.jpg" alt="Inspiration Flow">
+            <div class="image-caption">3. Capture Insights Anytime</div>
+        </div>
+
+        <div class="gallery-item">
+            <img src="./image_mk5aEQ.jpg" alt="Creative Expansion">
+            <div class="image-caption">4. Scale Innovation</div>
+        </div>
+
+        <div class="gallery-item">
+            <div style="flex-grow:1; display:flex; align-items:center;">
+                <img src="./image_voB1iK.jpg" alt="Concept to Product">
+            </div>
+            <div class="image-caption">5. Deliver Sweet Results</div>
+        </div>
+    </div>
+
+    <script>
+        async function checkout(priceId) {
+            try {
+                const response = await fetch('/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ priceId: priceId })
+                });
+                const session = await response.json();
+                if (session.url) {
+                    window.location.href = session.url;
+                } else {
+                    alert('Error creating checkout session. Please check your credentials.');
+                }
+            } catch (error) {
+                console.error('Frontend Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
+
