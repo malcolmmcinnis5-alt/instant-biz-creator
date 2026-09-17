@@ -3,7 +3,7 @@ const app = express();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-// Webhook listener for successful payments
+// Webhook handling for automated subscription activation
 app.post('/webhook', express.raw({type: 'application/json'}), (request, response) => {
   const sig = request.headers['stripe-signature'];
   let event;
@@ -18,10 +18,9 @@ app.post('/webhook', express.raw({type: 'application/json'}), (request, response
   response.send({ received: true });
 });
 
+// Parsers and static asset server configuration
 app.use(express.json());
-
-// Serves files directly from your main folder instead of a public folder
-app.use(express.static(__dirname)); 
+app.use(express.static(__dirname));
 
 app.post('/create-checkout-session', async (req, res) => {
   const { priceId } = req.body;
